@@ -45,6 +45,7 @@ function pkc_cache_dir(): string {
   return $tmp;
 }
 
+<<<<<<< HEAD
 // Demo data cho môi trường local khi chưa cấu hình
 function pkc_demo_rank_data(string $type): array {
   if ($type === 'guild') {
@@ -66,6 +67,8 @@ function pkc_demo_rank_data(string $type): array {
   ];
 }
 
+=======
+>>>>>>> 515371e5754ec985421b642741c267fd5e43ff20
 if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   // 1) cấu hình
   $cfg = pkc_load_config();
@@ -75,6 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   $cacheTtl        = (int)($cfg['CACHE_TTL'] ?? 60);
 
   if ($REMOTE_API_BASE === '' || $SECRET_TOKEN === '' || $allowedHost === '') {
+<<<<<<< HEAD
     // Cho phép stub dữ liệu khi chạy local hoặc được bật qua ENV
     $isLocal = in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1','::1']);
     $allowStub = $isLocal || getenv('PKC_DEV_ALLOW_STUB') === '1';
@@ -85,6 +89,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
       http_response_code(500);
       echo json_encode(['error' => 'server_not_configured']);
     }
+=======
+    http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['error' => 'server_not_configured']);
+>>>>>>> 515371e5754ec985421b642741c267fd5e43ff20
     exit;
   }
 
