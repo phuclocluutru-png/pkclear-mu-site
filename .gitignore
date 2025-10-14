@@ -1,0 +1,20 @@
+# Secrets & local config
+config.local.php
+.env
+
+# Caches & logs
+storage/
+*.log
+
+# Node/build artifacts (khi thêm toolchain)
+node_modules/
+dist/
+build/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# GitHub Actions local artifacts
+*.cache
+
