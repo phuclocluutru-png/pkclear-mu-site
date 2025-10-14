@@ -74,12 +74,15 @@
   <h2 class="font-display text-4xl md:text-5xl font-extrabold mb-10">Tin tức</h2>
   <div id="home-news-root" class="grid gap-10 items-start lg:grid-cols-[2fr_1fr]">
     <!-- Slider nổi bật -->
-    <div class="news-slider space-y-5">
+    <div class="news-slider space-y-6">
       <div class="news-slider-frame">
+        <span class="news-slider-side news-slider-side--left"></span>
+        <span class="news-slider-side news-slider-side--right"></span>
         <img id="news-featured-img" src="" alt="" class="news-slider-img"/>
-        <div class="news-slider-overlay">
-          <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-slider-title">&nbsp;</a>
-        </div>
+      </div>
+      <div class="news-slider-title-wrap">
+        <span class="news-slider-caption">Tiêu đề bài viết đang được hiển thị</span>
+        <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-slider-title">&nbsp;</a>
       </div>
       <div class="news-slider-footer">
         <button id="news-prev" class="news-arrow">‹</button>
