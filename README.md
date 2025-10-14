@@ -11,3 +11,18 @@ Website tĩnh giới thiệu máy chủ Mu Online PK CLEAR, sử dụng Tailwind
 - Sử dụng máy chủ tĩnh (VD: `php -S localhost:8000`) để chạy do có endpoint PHP proxy.
 - Tailwind được nhúng qua CDN, cân nhắc thiết lập build pipeline nếu cần tuỳ biến sâu.
 - Tham khảo tài liệu [`docs/DEVELOPMENT_READINESS.md`](docs/DEVELOPMENT_READINESS.md) để biết đánh giá và đề xuất nâng cấp chi tiết.
+
+## Cấu hình server-side (ẩn secret và cache)
+`api.php` không còn chứa token cứng trong mã. Có 2 cách cấu hình:
+
+- Biến môi trường (ưu tiên):
+  - `PKC_REMOTE_API_BASE` — Base URL API VPS (ví dụ: `https://api.pkclear.com`).
+  - `PKC_API_TOKEN` — Token bí mật để gọi API.
+  - `PKC_ALLOWED_HOST` — Host được phép (ví dụ: `api.pkclear.com`).
+  - `PKC_CACHE_TTL` — Thời gian cache (giây), mặc định `60`.
+
+- File cục bộ (không commit): sao chép `config.sample.php` thành `config.local.php` và điền giá trị thật.
+
+Cache BXH được lưu tại `storage/cache/` (tự tạo khi chạy). Nếu thư mục không ghi được, hệ thống sẽ fallback thư mục tạm của OS. Khuyến nghị chặn truy cập trực tiếp thư mục `storage/` trên web server (Nginx/Apache).
+
+Repo đã bổ sung `.gitignore` để bỏ qua `config.local.php`, `storage/` và các artifact build.
