@@ -3,6 +3,7 @@
   if(!root) return;
 
   const stage = root.querySelector('.news-slider-stage');
+  const layer = root.querySelector('.news-slider-layer');
   const mainImg = stage.querySelector('.news-card-img');
   const titleEl = root.querySelector('.news-card-title');
   const ctaBtn = root.querySelector('.news-card-cta');
@@ -75,9 +76,9 @@
   }
 
   function applyRafTransform(value){
-    if(!stage) return;
+    if(!layer) return;
     if(rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(()=>{ stage.style.transform = `translateX(${value}px)`; });
+    rafId = requestAnimationFrame(()=>{ layer.style.transform = `translateX(${value}px)`; });
   }
 
   function updateSlider(){
