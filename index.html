@@ -72,18 +72,17 @@
  <!-- Tin tức hai cột: slider + tabs -->
 <section id="news" class="mx-auto max-w-7xl px-4 py-16">
   <h2 class="font-display text-4xl md:text-5xl font-extrabold mb-10">Tin tức</h2>
-  <div id="home-news-root" class="grid gap-10 items-start lg:grid-cols-[2fr_1fr]">
+  <div id="home-news-root" class="grid gap-10 lg:gap-16 items-start lg:items-stretch lg:grid-cols-[1.45fr_1fr] lg:justify-items-stretch">
     <!-- Slider nổi bật -->
     <div class="news-slider">
       <div class="news-slider-stage">
-        <div id="news-prev-card" class="news-card news-card--side"></div>
+        <div id="news-prev-card" class="news-card news-card--side news-card--left"></div>
         <div class="news-card news-card--main">
           <img id="news-featured-img" src="" alt="" class="news-card-img"/>
         </div>
-        <div id="news-next-card" class="news-card news-card--side"></div>
+        <div id="news-next-card" class="news-card news-card--side news-card--right"></div>
       </div>
       <div class="news-slider-meta">
-        <p class="news-slider-label">Tiêu đề bài viết đang được hiển thị</p>
         <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-slider-title">&nbsp;</a>
       </div>
       <div class="news-slider-controls">
