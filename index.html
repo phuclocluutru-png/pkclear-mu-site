@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css"/>
+  <link rel="stylesheet" href="/css/news.css"/>
   <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}h1,.font-display{font-family:Oxanium,Inter,sans-serif;letter-spacing:.5px}</style>
 </head>
 <body class="bg-slate-950 text-slate-100">
@@ -70,41 +71,50 @@
  </section>
 
  <!-- Tin tức hai cột: slider + tabs -->
-<section id="news" class="mx-auto max-w-7xl px-4 py-16">
-  <h2 class="font-display text-4xl md:text-5xl font-extrabold mb-10">Tin tức</h2>
-  <div id="home-news-root" class="grid gap-12 lg:gap-16 items-start lg:grid-cols-[1.6fr_1fr]">
-    <!-- Slider nổi bật -->
-    <div class="news-slider">
-      <div class="news-slider-stage">
-        <div id="news-prev-card" class="news-card news-card--ghost"></div>
-        <div class="news-card news-card--main">
-          <img id="news-featured-img" src="" alt="" class="news-card-img"/>
-          <div class="news-card-overlay">
-            <span class="news-card-label">Bài viết nổi bật</span>
-            <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-card-title">&nbsp;</a>
-            <a id="news-featured-view" href="#" target="_blank" rel="noopener" class="news-card-cta">Xem ngay</a>
+<section id="news" class="news-section">
+  <div class="news-grid" id="home-news-root">
+    <div class="news-left">
+      <div id="news-slider" class="news-slider">
+        <div class="news-slider-stage">
+          <div id="news-prev-card" class="news-card news-card--ghost"></div>
+          <div class="news-card news-card--main">
+            <img id="news-featured-img" src="" alt="" class="news-card-img" loading="lazy"/>
+            <div class="news-card-overlay">
+              <span class="news-card-label">Bài viết nổi bật</span>
+              <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-card-title">&nbsp;</a>
+              <a id="news-featured-view" href="#" target="_blank" rel="noopener" class="news-card-cta">Xem ngay</a>
+            </div>
           </div>
+          <div id="news-next-card" class="news-card news-card--ghost"></div>
         </div>
-        <div id="news-next-card" class="news-card news-card--ghost"></div>
-      </div>
-      <div class="news-slider-controls">
-        <button id="news-prev" class="news-arrow">‹</button>
-        <div id="news-featured-dots" class="news-dots"></div>
-        <button id="news-next" class="news-arrow">›</button>
+        <div class="news-slider-controls">
+          <button id="news-prev" class="news-arrow prev">←</button>
+          <div id="news-featured-dots" class="news-dots"></div>
+          <button id="news-next" class="news-arrow next">→</button>
+        </div>
       </div>
     </div>
-
-    <!-- Panel danh sách -->
-    <aside class="news-panel glass-panel">
-      <div id="news-tabs" class="news-tabs">
-        <button data-cat="noi-bat" class="news-tab">Nổi Bật</button>
-        <button data-cat="su-kien" class="news-tab">Sự Kiện</button>
-        <button data-cat="cap-nhat" class="news-tab">Cập Nhật</button>
-        <button data-cat="huong-dan" class="news-tab">Hướng Dẫn</button>
+    <div class="news-right">
+      <div class="news-header">
+        <div class="tabs left">
+          <button class="news-tab" data-tab="featured">Nổi bật</button>
+          <button class="news-tab" data-tab="events">Sự kiện</button>
+        </div>
+        <div class="logo">PK CLEAR</div>
+        <div class="tabs right">
+          <button class="news-tab" data-tab="updates">Cập nhật</button>
+          <button class="news-tab" data-tab="guides">Hướng dẫn</button>
+        </div>
       </div>
-      <ul id="news-list" class="news-list"></ul>
-      <a href="/pages/news.html" class="news-more">Xem nhiều hơn</a>
-    </aside>
+      <div class="glass-panel">
+        <ul id="news-items" class="news-list"></ul>
+        <div class="news-more">
+          <span class="line"></span>
+          <a class="more-btn" href="/pages/news.html">Xem nhiều hơn</a>
+          <span class="line"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -129,5 +139,6 @@
 <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-400">© <span id="year"></span> PK CLEAR. All rights reserved.</footer>
 <script src="/js/config.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/news-slider.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
 </body></html>
