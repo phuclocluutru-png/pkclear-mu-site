@@ -2,24 +2,26 @@ name: Deploy to Hosting via FTP
 on:
   push:
     branches: [ "main" ]
+
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-with:
-  server: ${{ secrets.FTP_SERVER }}
-  username: ${{ secrets.FTP_USERNAME }}
-  password: ${{ secrets.FTP_PASSWORD }}
-  server-dir: /          # root của user = /public_html/mu
-  protocol: ftps         # đúng với "FTP & explicit FTPS: 21"
-  port: 21               # (tùy chọn, có thể bỏ vì mặc định là 21)
-  local-dir: ./
-  exclude: |
-    **/.git*
-    **/.github/**
-    **/README.md
-
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /          # user đã chroot vào /public_html/mu
+          protocol: ftps         # host của bạn hỗ trợ Explicit FTPS 21
+          port: 21
+          local-dir: ./
+          log-level: verbose
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/README.md
