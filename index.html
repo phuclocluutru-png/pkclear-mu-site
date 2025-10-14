@@ -67,27 +67,56 @@
       </div>
     </div>
   </div>
-</section>
+ </section>
 
-<section id="features" class="mx-auto max-w-7xl px-4 py-16">
+ <!-- Tin tức hai cột: slider + tabs -->
+ <section id="news" class="mx-auto max-w-7xl px-4 py-16" >
+  <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">Tin tức</h2>
+  <div id="home-news-root" class="grid lg:grid-cols-3 gap-8 items-start">
+    <!-- Featured slider (trái, chiếm 2 cột) -->
+    <div class="lg:col-span-2">
+      <div class="relative rounded-2xl overflow-hidden border border-white/10">
+        <img id="news-featured-img" src="" alt="" class="w-full aspect-[16/9] object-cover"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 p-4 md:p-6">
+          <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="font-display text-xl md:text-2xl font-bold hover:text-cyan-300">&nbsp;</a>
+        </div>
+        <button id="news-prev" class="absolute left-2 top-1/2 -translate-y-1/2 news-nav">‹</button>
+        <button id="news-next" class="absolute right-2 top-1/2 -translate-y-1/2 news-nav">›</button>
+      </div>
+      <div id="news-featured-dots" class="flex items-center gap-2 justify-center mt-3"></div>
+    </div>
+
+    <!-- Danh sách có tab (phải) -->
+    <div class="rounded-2xl border border-white/10 p-4">
+      <div id="news-tabs" class="flex flex-wrap gap-2 text-sm mb-3">
+        <button data-cat="noi-bat" class="px-3 py-1 rounded-lg border border-white/10">Nổi Bật</button>
+        <button data-cat="su-kien" class="px-3 py-1 rounded-lg border border-white/10">Sự Kiện</button>
+        <button data-cat="cap-nhat" class="px-3 py-1 rounded-lg border border-white/10">Cập Nhật</button>
+        <button data-cat="huong-dan" class="px-3 py-1 rounded-lg border border-white/10">Hướng Dẫn</button>
+      </div>
+      <ul id="news-list" class="space-y-3"></ul>
+    </div>
+  </div>
+ </section>
+
+ <!-- CTA -->
+ <section class="mx-auto max-w-7xl px-4 pb-16">
+  <div class="rounded-2xl border border-white/10 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div><h3 class="font-display text-2xl md:text-3xl font-bold">Sẵn sàng chinh phục PK CLEAR?</h3><p class="text-slate-400 mt-2">Tải game và liên hệ Admin để được duyệt.</p></div>
+    <div class="flex gap-3"><a href="/pages/download.html" class="px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold">Tải ngay</a><a href="/pages/contact.html" class="px-5 py-3 rounded-xl border border-white/10 hover:border-white/20">Liên hệ Admin</a></div>
+  </div>
+ </section>
+
+ <!-- Điểm nổi bật: đưa xuống cuối -->
+ <section id="features" class="mx-auto max-w-7xl px-4 pb-20">
   <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">Điểm nổi bật</h2>
   <div class="grid md:grid-cols-3 gap-6">
     <div class="rounded-2xl border border-white/10 p-6"><div class="text-xl font-semibold">Cân bằng class</div><p class="mt-2 text-slate-400">Build đa dạng, meta ổn định cho PK và cày cuốc.</p></div>
     <div class="rounded-2xl border border-white/10 p-6"><div class="text-xl font-semibold">Sự kiện dày đặc</div><p class="mt-2 text-slate-400">BC/CC/DS, Boss giờ cố định, event cuối tuần có thưởng.</p></div>
     <div class="rounded-2xl border border-white/10 p-6"><div class="text-xl font-semibold">Anti-cheat</div><p class="mt-2 text-slate-400">Chống speed/auto, log và xử lý nhanh.</p></div>
   </div>
-</section>
-
-<section class="mx-auto max-w-7xl px-4 pb-20">
-  <div class="mb-10">
-    <h3 class="font-display text-2xl md:text-3xl font-bold mb-4">Tin mới từ Blog</h3>
-    <div id="wp-latest" class="grid md:grid-cols-3 gap-6"></div>
-  </div>
-  <div class="rounded-2xl border border-white/10 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-    <div><h3 class="font-display text-2xl md:text-3xl font-bold">Sẵn sàng chinh phục PK CLEAR?</h3><p class="text-slate-400 mt-2">Tải game và liên hệ Admin để được duyệt.</p></div>
-    <div class="flex gap-3"><a href="/pages/download.html" class="px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold">Tải ngay</a><a href="/pages/contact.html" class="px-5 py-3 rounded-xl border border-white/10 hover:border-white/20">Liên hệ Admin</a></div>
-  </div>
-</section>
+ </section>
 
 <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-400">© <span id="year"></span> PK CLEAR. All rights reserved.</footer>
 <script src="/js/config.js"></script>

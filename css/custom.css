@@ -1,3 +1,6 @@
 :root{--pkc-accent:#7c3aed;--pkc-accent-2:#22d3ee}
 .bg-grid{background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1px, transparent 1px);background-size:24px 24px}
 .glow{box-shadow:0 0 60px rgba(124,58,237,.35)}
+/* Nút điều hướng slider tin tức */
+.news-nav{height:40px;width:40px;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(2,6,23,.5);backdrop-filter:blur(4px);color:white;border:1px solid rgba(255,255,255,.15)}
+.news-nav:hover{background:rgba(2,6,23,.7)}

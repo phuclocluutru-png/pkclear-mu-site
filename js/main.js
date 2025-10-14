@@ -55,3 +55,90 @@ async function loadWpPosts(){
   try{ render(await fetchJson(10), 'wp-news'); }catch(e){ const el=document.getElementById('wp-news'); if(el) el.textContent='Không tải được bài viết WordPress.'; }
 }
 loadWpPosts();
+
+// Trang chủ: Tin tức hai cột (slider + tabs)
+async function initHomeNewsSection(){
+  const root = document.getElementById('home-news-root');
+  if(!root) return; // không ở trang chủ
+  const cfg = window.PKC_CONFIG?.wordpress || {}; if (!cfg?.baseUrl) return;
+  const base = cfg.baseUrl.replace(/\/$/, '');
+
+  const cats = cfg.categories || {};
+  const SLUGS = {
+    featured: cats.featured || 'noi-bat',
+    su_kien: cats.su_kien || 'su-kien',
+    cap_nhat: cats.cap_nhat || 'cap-nhat',
+    huong_dan: cats.huong_dan || 'huong-dan'
+  };
+
+  const cacheCatId = new Map();
+  async function categoryIdBySlug(slug){
+    if(cacheCatId.has(slug)) return cacheCatId.get(slug);
+    try{
+      const url = `${base}/wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`;
+      const res = await fetch(url); const js = await res.json();
+      const id = Array.isArray(js) && js[0]?.id ? js[0].id : null;
+      cacheCatId.set(slug,id); return id;
+    }catch{ return null; }
+  }
+
+  async function fetchPosts({perPage=6, catSlug=null}){
+    const u = new URL(`${base}/wp-json/wp/v2/posts`);
+    u.searchParams.set('per_page', perPage);
+    u.searchParams.set('_embed', '1');
+    if (catSlug){
+      const id = await categoryIdBySlug(catSlug); if(id) u.searchParams.set('categories', id);
+    }
+    const res = await fetch(u.toString()); return await res.json();
+  }
+
+  function esc(s){ return (s??'').toString().replace(/[&<>\"]/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;' }[m])); }
+
+  // Slider Featured (trái)
+  const sImage = document.getElementById('news-featured-img');
+  const sTitle = document.getElementById('news-featured-title');
+  const sPrev  = document.getElementById('news-prev');
+  const sNext  = document.getElementById('news-next');
+  const sDots  = document.getElementById('news-featured-dots');
+  let sData = []; let idx = 0; let timer = null;
+  function renderFeatured(i){
+    if(!sData.length) return;
+    idx = (i + sData.length) % sData.length;
+    const p = sData[idx];
+    const img = p?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+    if(sImage) { sImage.src = img; sImage.alt = esc(p?.title?.rendered||''); }
+    if(sTitle) { sTitle.textContent = (p?.title?.rendered||'').replace(/<[^>]+>/g,''); sTitle.href = p?.link || '#'; }
+    if(sDots){ sDots.innerHTML = sData.map((_,k)=>`<button data-k="${k}" class="h-2 w-2 rounded-full ${k===idx?'bg-white':'bg-white/30'}"></button>`).join(''); sDots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stopAuto(); renderFeatured(parseInt(b.dataset.k,10)); startAuto(); })); }
+  }
+  function startAuto(){ stopAuto(); timer = setInterval(()=>renderFeatured(idx+1), 6000); }
+  function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
+  if(sPrev) sPrev.addEventListener('click', ()=>{ stopAuto(); renderFeatured(idx-1); startAuto(); });
+  if(sNext) sNext.addEventListener('click', ()=>{ stopAuto(); renderFeatured(idx+1); startAuto(); });
+
+  // Tab list (phải)
+  const tabs = document.querySelectorAll('#news-tabs [data-cat]');
+  const list = document.getElementById('news-list');
+  async function loadList(slug){
+    if(!list) return; list.innerHTML = '<li class="text-slate-400">Đang tải...</li>';
+    try{
+      const posts = await fetchPosts({perPage:8, catSlug:slug});
+      if(!Array.isArray(posts)) throw 0;
+      list.innerHTML = posts.map(p=>{
+        const t=(p?.title?.rendered||'').replace(/<[^>]+>/g,''); const l=p?.link||'#'; const d=(p?.date||'').slice(0,10);
+        return `<li><a class="flex justify-between items-center gap-3 group" href="${l}" target="_blank" rel="noopener"><span class="truncate group-hover:text-cyan-300">${esc(t)}</span><span class="text-xs text-slate-400 whitespace-nowrap">${d}</span></a></li>`;
+      }).join('');
+    }catch{ list.innerHTML = '<li class="text-slate-400">Không tải được bài viết.</li>'; }
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('bg-white/10','text-white'));
+    b.classList.add('bg-white/10','text-white');
+    loadList(b.dataset.cat);
+  }));
+
+  // Khởi tạo dữ liệu
+  try { sData = await fetchPosts({perPage:5, catSlug:SLUGS.featured}); } catch {}
+  if(Array.isArray(sData) && sData.length){ renderFeatured(0); startAuto(); }
+  const firstTab = document.querySelector('#news-tabs [data-cat]');
+  if(firstTab) { firstTab.classList.add('bg-white/10','text-white'); loadList(firstTab.dataset.cat); }
+}
+initHomeNewsSection();

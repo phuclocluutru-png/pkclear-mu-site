@@ -11,6 +11,13 @@ window.PKC_CONFIG = {
   },
   wordpress: {
     baseUrl: "https://pkclear.com",
-    useProxy: false
+    useProxy: false,
+    // Slug các danh mục để phân tab/featured
+    categories: {
+      featured: "noi-bat",
+      su_kien: "su-kien",
+      cap_nhat: "cap-nhat",
+      huong_dan: "huong-dan"
+    }
   }
 };
