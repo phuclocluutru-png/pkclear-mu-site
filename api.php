@@ -75,7 +75,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
 
   if ($REMOTE_API_BASE === '' || $SECRET_TOKEN === '' || $allowedHost === '') {
     $isLocal = in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1','::1']);
-    $allowStub = $isLocal || getenv('PKC_DEV_ALLOW_STUB') === '1';
+    $allowStub = $isLocal || getenv('PKC_DEV_ALLOW_STUB') === '0';
     header('Content-Type: application/json; charset=utf-8');
     if ($allowStub) {
       echo json_encode(pkc_demo_rank_data($_GET['type'] ?? 'ranking'));
