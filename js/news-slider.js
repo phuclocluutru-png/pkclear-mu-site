@@ -5,13 +5,15 @@
   const stage = root.querySelector('.news-slider-stage');
   const layer = root.querySelector('.news-slider-layer');
   const mainImg = stage.querySelector('.news-card-img');
-  const titleEl = root.querySelector('.news-card-title');
-  const ctaBtn = root.querySelector('.news-card-cta');
+  const titleEl = document.getElementById('news-featured-title');
+  const ctaBtn = document.getElementById('news-featured-view');
   const prevGhost = root.querySelector('#news-prev-card');
   const nextGhost = root.querySelector('#news-next-card');
   const dotsWrap = root.querySelector('.news-dots');
   const prevBtn = root.querySelector('.prev');
   const nextBtn = root.querySelector('.next');
+
+  if(stage) stage.style.cursor = 'grab';
 
   const listEl = document.getElementById('news-items');
   const tabButtons = Array.from(document.querySelectorAll('[data-tab]'));
@@ -85,15 +87,15 @@
     if(!sliderPosts.length) return;
     const post = sliderPosts[current];
     const img = post?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-    const title = post?.title?.rendered || 'Đang cập nhật';
+    const title = (post?.title?.rendered || '').replace(/<[^>]+>/g,'');
     const link = post?.link || '#';
 
     if(img){
       mainImg.src = img;
-      mainImg.alt = esc(title);
+      mainImg.alt = title || "Bài viết nổi bật";
     }
     if(titleEl){
-      titleEl.textContent = esc(title).replace(/&amp;/g,'&');
+      titleEl.textContent = title || 'Đang cập nhật';
       titleEl.href = link;
     }
     if(ctaBtn){ ctaBtn.href = link; }
@@ -109,6 +111,7 @@
       dotsWrap.innerHTML = sliderPosts.map((_,i)=>`<button data-index="${i}" class="${i===current?'active':''}"></button>`).join('');
       dotsWrap.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>setCurrent(parseInt(btn.dataset.index,10))));
     }
+    if(layer) layer.style.transform = "translateX(0)";
   }
 
   function setCurrent(index){
