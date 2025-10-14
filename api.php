@@ -12,7 +12,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   }
 
   // TODO: thay đúng domain VPS và token của bạn
-  $REMOTE_API_BASE = 'https://api.pkclear.com/index.php'; // hoặc 'https://api.pkclear.com'
+  $REMOTE_API_BASE = 'http://api.pkclear.com/index.php'; // hoặc 'https://api.pkclear.com'
   $SECRET_TOKEN    = 'pZ9rQ6xV-71gsJ4F_neAq2LzHf0TMbCY8uR5wK1SdEXvOGIhLBPt3yUjVNc7D';
 
   $url = $REMOTE_API_BASE . '?endpoint=' . urlencode($type) . '&token=' . urlencode($SECRET_TOKEN);
