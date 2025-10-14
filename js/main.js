@@ -96,7 +96,6 @@ async function initHomeNewsSection(){
 
   // Slider Featured (trái)
   const sImage = document.getElementById('news-featured-img');
-  const sTitle = document.getElementById('news-featured-title');
   const sView  = document.getElementById('news-featured-view');
   const sPrev  = document.getElementById('news-prev');
   const sNext  = document.getElementById('news-next');
@@ -114,7 +113,6 @@ async function initHomeNewsSection(){
     const p = sData[idx];
     const img = p?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
     if(sImage) { sImage.src = img || ''; sImage.alt = esc(p?.title?.rendered||''); }
-    if(sTitle) { sTitle.textContent = (p?.title?.rendered||'').replace(/<[^>]+>/g,''); sTitle.href = p?.link || '#'; }
     if(sView)  { sView.href = p?.link || '#'; }
     if(sPrevCard){
       const prev = sData[(idx - 1 + sData.length) % sData.length];

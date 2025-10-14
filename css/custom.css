@@ -10,8 +10,6 @@
 .news-card--side{width:40%;aspect-ratio:1/1;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.22;z-index:1;border:1px solid rgba(148,163,184,.22);filter:blur(.7px);pointer-events:none}
 .news-card--left{transform:translate(-175%,-48%) scale(.7) rotate(-7deg)}
 .news-card--right{transform:translate(75%,-52%) scale(.7) rotate(7deg)}
-.news-slider-meta{text-align:left}
-.news-slider-title{display:block;font-size:clamp(1.1rem,2vw,1.85rem);font-weight:700;color:#e2e8f0;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;line-height:1.35;max-width:32rem}
 .news-slider-controls{display:flex;align-items:center;justify-content:flex-start;gap:1.25rem;margin-top:.5rem}
 .news-arrow{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 1.8rem;border:none;border-radius:999px;background:rgba(15,23,42,.75);color:#e2e8f0;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:background .2s,transform .2s}
 .news-arrow:hover{background:rgba(148,163,184,.35);transform:translateY(-2px)}
