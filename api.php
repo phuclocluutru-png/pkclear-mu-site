@@ -5,7 +5,7 @@
  * ===================================================== */
 if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   // 1) cấu hình
-  $REMOTE_API_BASE = 'http://api.pkclear.com';   // Đang HTTP; nếu đã có SSL thì đổi sang https://
+  $REMOTE_API_BASE = 'https://api.pkclear.com';   // Đang HTTP; nếu đã có SSL thì đổi sang https://
   $SECRET_TOKEN    = 'pZ9rQ6xV-71gsJ4F_neAq2LzHf0TMbCY8uR5wK1SdEXvOGIhLBPt3yUjVNc7D';        // <-- dán token API của bạn
   $allowedHost     = 'api.pkclear.com';          // khoá host
 
