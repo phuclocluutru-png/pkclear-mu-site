@@ -97,6 +97,7 @@ async function initHomeNewsSection(){
   // Slider Featured (trái)
   const sImage = document.getElementById('news-featured-img');
   const sTitle = document.getElementById('news-featured-title');
+  const sView  = document.getElementById('news-featured-view');
   const sPrev  = document.getElementById('news-prev');
   const sNext  = document.getElementById('news-next');
   const sDots  = document.getElementById('news-featured-dots');
@@ -108,6 +109,7 @@ async function initHomeNewsSection(){
     const img = p?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
     if(sImage) { sImage.src = img; sImage.alt = esc(p?.title?.rendered||''); }
     if(sTitle) { sTitle.textContent = (p?.title?.rendered||'').replace(/<[^>]+>/g,''); sTitle.href = p?.link || '#'; }
+    if(sView)  { sView.href = p?.link || '#'; }
     if(sDots){ sDots.innerHTML = sData.map((_,k)=>`<button data-k="${k}" class="h-2 w-2 rounded-full ${k===idx?'bg-white':'bg-white/30'}"></button>`).join(''); sDots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stopAuto(); renderFeatured(parseInt(b.dataset.k,10)); startAuto(); })); }
   }
   function startAuto(){ stopAuto(); timer = setInterval(()=>renderFeatured(idx+1), 6000); }
@@ -125,7 +127,13 @@ async function initHomeNewsSection(){
       if(!Array.isArray(posts)) throw 0;
       list.innerHTML = posts.map(p=>{
         const t=(p?.title?.rendered||'').replace(/<[^>]+>/g,''); const l=p?.link||'#'; const d=(p?.date||'').slice(0,10);
-        return `<li><a class="flex justify-between items-center gap-3 group" href="${l}" target="_blank" rel="noopener"><span class="truncate group-hover:text-cyan-300">${esc(t)}</span><span class="text-xs text-slate-400 whitespace-nowrap">${d}</span></a></li>`;
+        let cat='';
+        try{
+          const terms=p?._embedded?.['wp:term'];
+          if(Array.isArray(terms) && Array.isArray(terms[0]) && terms[0][0]?.name) cat=terms[0][0].name;
+        }catch{}
+        const meta = [cat,d].filter(Boolean).join(' / ');
+        return `<li><a class="flex justify-between items-center gap-3 group" href="${l}" target="_blank" rel="noopener"><span class="truncate group-hover:text-cyan-300">${esc(t)}</span><span class="text-xs text-slate-400 whitespace-nowrap">${esc(meta)}</span></a></li>`;
       }).join('');
     }catch{ list.innerHTML = '<li class="text-slate-400">Không tải được bài viết.</li>'; }
   }

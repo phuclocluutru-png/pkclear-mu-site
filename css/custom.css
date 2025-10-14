@@ -4,3 +4,5 @@
 /* Nút điều hướng slider tin tức */
 .news-nav{height:40px;width:40px;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(2,6,23,.5);backdrop-filter:blur(4px);color:white;border:1px solid rgba(255,255,255,.15)}
 .news-nav:hover{background:rgba(2,6,23,.7)}
+/* Khung nổi cho slider */
+.news-frame{box-shadow:0 10px 40px rgba(124,58,237,.25), 0 2px 10px rgba(34,211,238,.15)}
