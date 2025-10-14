@@ -56,6 +56,11 @@ async function loadRank(type='ranking'){
   try{
     const res = await fetch(`/api.php?action=rankings&type=${encodeURIComponent(type)}`);
     const data = await res.json();
+    if (data && data.error) {
+      $('#rank-body').innerHTML = `<tr><td class="px-4 py-6" colspan="7">Không tải được BXH: ${esc(data.error)}</td></tr>`;
+      statusEl.textContent = '';
+      return;
+    }
     if(Array.isArray(data)){
       const rows = data.map((r,i)=>{
         if(type==='ranking'){

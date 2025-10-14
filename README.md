@@ -26,3 +26,9 @@ Website tĩnh giới thiệu máy chủ Mu Online PK CLEAR, sử dụng Tailwind
 Cache BXH được lưu tại `storage/cache/` (tự tạo khi chạy). Nếu thư mục không ghi được, hệ thống sẽ fallback thư mục tạm của OS. Khuyến nghị chặn truy cập trực tiếp thư mục `storage/` trên web server (Nginx/Apache).
 
 Repo đã bổ sung `.gitignore` để bỏ qua `config.local.php`, `storage/` và các artifact build.
+
+### Khắc phục lỗi “Lỗi dữ liệu” ở trang BXH
+- Nguyên nhân phổ biến: server chưa cấu hình `api.php` sau khi ẩn secret, nên endpoint trả `{ error: "server_not_configured" }`.
+- Cách xử lý:
+  1) Với môi trường thật, cấu hình biến môi trường hoặc `config.local.php` như mục trên.
+  2) Với môi trường local, có sẵn dữ liệu mô phỏng khi truy cập từ `localhost` hoặc khi đặt `PKC_DEV_ALLOW_STUB=1` trong môi trường. Dùng để test giao diện nhanh.
