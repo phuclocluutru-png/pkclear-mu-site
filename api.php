@@ -8,10 +8,10 @@
 // Helper: load config ưu tiên ENV > config.local.php > defaults
 function pkc_load_config(): array {
   $env = [
-    'REMOTE_API_BASE' => getenv('PKC_REMOTE_API_BASE') ?: null,
-    'SECRET_TOKEN'    => getenv('PKC_API_TOKEN') ?: null,
-    'ALLOWED_HOST'    => getenv('PKC_ALLOWED_HOST') ?: null,
-    'CACHE_TTL'       => getenv('PKC_CACHE_TTL') ?: null,
+    'REMOTE_API_BASE' => getenv('https://api.pkclear.com') ?: null,
+    'SECRET_TOKEN'    => getenv('pZ9rQ6xV-71gsJ4F_neAq2LzHf0TMbCY8uR5wK1SdEXvOGIhLBPt3yUjVNc7D') ?: null,
+    'ALLOWED_HOST'    => getenv('api.pkclear.com') ?: null,
+    'CACHE_TTL'       => getenv('5') ?: null,
   ];
 
   $file = __DIR__ . '/config.local.php';
@@ -25,7 +25,7 @@ function pkc_load_config(): array {
     'REMOTE_API_BASE' => '',
     'SECRET_TOKEN'    => '',
     'ALLOWED_HOST'    => '',
-    'CACHE_TTL'       => 60,
+    'CACHE_TTL'       => 5,
   ];
 
   // Merge theo ưu tiên: defaults < file < env
@@ -45,30 +45,6 @@ function pkc_cache_dir(): string {
   return $tmp;
 }
 
-<<<<<<< HEAD
-// Demo data cho môi trường local khi chưa cấu hình
-function pkc_demo_rank_data(string $type): array {
-  if ($type === 'guild') {
-    return [
-      ['ranking'=>1,'guild_name'=>'Alpha','master'=>'Admin','TotalDevote'=>1200,'MemberCount'=>15,'G_Score'=>3200],
-      ['ranking'=>2,'guild_name'=>'Beta','master'=>'Mod','TotalDevote'=>800,'MemberCount'=>10,'G_Score'=>2400],
-    ];
-  }
-  if ($type === 'boss') {
-    return [
-      ['CharacterName'=>'DemoOne','KillCount'=>25,'TotalPoint'=>250],
-      ['CharacterName'=>'DemoTwo','KillCount'=>18,'TotalPoint'=>180],
-    ];
-  }
-  // ranking
-  return [
-    ['ranking'=>1,'name'=>'WarDemo','level'=>400,'reset'=>10,'master_reset'=>1,'guild'=>'Alpha','status'=>'Online'],
-    ['ranking'=>2,'name'=>'ElfDemo','level'=>380,'reset'=>9,'master_reset'=>1,'guild'=>'Beta','status'=>'Offline'],
-  ];
-}
-
-=======
->>>>>>> 515371e5754ec985421b642741c267fd5e43ff20
 if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   // 1) cấu hình
   $cfg = pkc_load_config();
@@ -78,22 +54,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
   $cacheTtl        = (int)($cfg['CACHE_TTL'] ?? 60);
 
   if ($REMOTE_API_BASE === '' || $SECRET_TOKEN === '' || $allowedHost === '') {
-<<<<<<< HEAD
-    // Cho phép stub dữ liệu khi chạy local hoặc được bật qua ENV
-    $isLocal = in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1','::1']);
-    $allowStub = $isLocal || getenv('PKC_DEV_ALLOW_STUB') === '1';
-    header('Content-Type: application/json; charset=utf-8');
-    if ($allowStub) {
-      echo json_encode(pkc_demo_rank_data($_GET['type'] ?? 'ranking'));
-    } else {
-      http_response_code(500);
-      echo json_encode(['error' => 'server_not_configured']);
-    }
-=======
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['error' => 'server_not_configured']);
->>>>>>> 515371e5754ec985421b642741c267fd5e43ff20
     exit;
   }
 
