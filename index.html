@@ -74,41 +74,32 @@
   <h2 class="font-display text-4xl md:text-5xl font-extrabold mb-10">Tin tức</h2>
   <div id="home-news-root" class="grid gap-10 lg:gap-16 items-start lg:items-stretch lg:grid-cols-[1.45fr_1fr] lg:justify-items-stretch">
     <!-- Slider nổi bật -->
-    <div class="news-slider">
-      <div class="news-slider-stage">
-        <div id="news-prev-card" class="news-card news-card--side news-card--left"></div>
-        <div class="news-card news-card--main">
-          <img id="news-featured-img" src="" alt="" class="news-card-img"/>
+    <div class="news-highlight">
+      <div class="news-highlight-card">
+        <img id="news-featured-img" src="" alt="" class="news-highlight-img"/>
+        <div class="news-highlight-overlay">
+          <span class="news-highlight-label">Bài viết nổi bật</span>
+          <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-highlight-title">&nbsp;</a>
+          <a id="news-featured-view" href="#" target="_blank" rel="noopener" class="news-highlight-cta">Xem ngay</a>
         </div>
-        <div id="news-next-card" class="news-card news-card--side news-card--right"></div>
       </div>
-      <div class="news-slider-controls">
+      <div class="news-highlight-controls">
         <button id="news-prev" class="news-arrow">‹</button>
-        <a id="news-featured-view" href="#" target="_blank" rel="noopener" class="news-cta">Xem ngay</a>
+        <div id="news-featured-dots" class="news-dots"></div>
         <button id="news-next" class="news-arrow">›</button>
       </div>
-      <div id="news-featured-dots" class="news-dots"></div>
     </div>
 
     <!-- Panel danh sách -->
-    <aside class="news-panel">
-      <div class="news-panel-header">
-        <div id="news-tabs" class="news-tabs">
-          <div class="news-tabs-group">
-            <button data-cat="noi-bat" class="news-tab">Nổi Bật</button>
-            <button data-cat="su-kien" class="news-tab">Sự Kiện</button>
-          </div>
-          <div class="news-tabs-group">
-            <button data-cat="cap-nhat" class="news-tab">Cập Nhật</button>
-            <button data-cat="huong-dan" class="news-tab">Hướng Dẫn</button>
-          </div>
-        </div>
-        <img src="/assets/logo.png" alt="PK CLEAR" class="news-panel-logo"/>
+    <aside class="news-panel-simple">
+      <div id="news-tabs" class="news-tabs-simple">
+        <button data-cat="noi-bat" class="news-tab">Nổi Bật</button>
+        <button data-cat="su-kien" class="news-tab">Sự Kiện</button>
+        <button data-cat="cap-nhat" class="news-tab">Cập Nhật</button>
+        <button data-cat="huong-dan" class="news-tab">Hướng Dẫn</button>
       </div>
       <ul id="news-list" class="news-list"></ul>
-      <div class="news-more-wrap">
-        <a href="/pages/news.html" class="news-more">Xem nhiều hơn</a>
-      </div>
+      <a href="/pages/news.html" class="news-more">Xem nhiều hơn</a>
     </aside>
   </div>
 </section>

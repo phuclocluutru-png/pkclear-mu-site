@@ -96,13 +96,11 @@ async function initHomeNewsSection(){
 
   // Slider Featured (trái)
   const sImage = document.getElementById('news-featured-img');
+  const sTitle = document.getElementById('news-featured-title');
   const sView  = document.getElementById('news-featured-view');
   const sPrev  = document.getElementById('news-prev');
   const sNext  = document.getElementById('news-next');
   const sDots  = document.getElementById('news-featured-dots');
-  const sPrevCard = document.getElementById('news-prev-card');
-  const sNextCard = document.getElementById('news-next-card');
-  const stage = document.querySelector('.news-slider-stage');
   let sData = []; let idx = 0; let timer = null;
 
   function goPrev(){ if(!sData.length) return; stopAuto(); renderFeatured(idx-1); startAuto(); }
@@ -114,18 +112,7 @@ async function initHomeNewsSection(){
     const img = p?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
     if(sImage) { sImage.src = img || ''; sImage.alt = esc(p?.title?.rendered||''); }
     if(sView)  { sView.href = p?.link || '#'; }
-    if(sPrevCard){
-      const prev = sData[(idx - 1 + sData.length) % sData.length];
-      const prevImg = prev?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      sPrevCard.style.backgroundImage = prevImg ? `url(${prevImg})` : 'none';
-      sPrevCard.style.opacity = prevImg ? '0.35' : '0';
-    }
-    if(sNextCard){
-      const next = sData[(idx + 1) % sData.length];
-      const nextImg = next?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-      sNextCard.style.backgroundImage = nextImg ? `url(${nextImg})` : 'none';
-      sNextCard.style.opacity = nextImg ? '0.35' : '0';
-    }
+    if(sTitle) { sTitle.textContent = (p?.title?.rendered||'').replace(/<[^>]+>/g,''); sTitle.href = p?.link || '#'; }
     if(sDots){
       sDots.innerHTML = sData.map((_,k)=>`<button data-k="${k}" class="${k===idx?'active':''}"></button>`).join('');
       sDots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stopAuto(); renderFeatured(parseInt(b.dataset.k,10)); startAuto(); }));
@@ -136,50 +123,6 @@ async function initHomeNewsSection(){
   if(sPrev) sPrev.addEventListener('click', goPrev);
   if(sNext) sNext.addEventListener('click', goNext);
 
-  if(stage){
-    stage.style.cursor = 'grab';
-    let dragStartX = 0;
-    let dragDx = 0;
-    let dragging = false;
-    let activePointer = null;
-
-    const onPointerDown = e => {
-      if(!sData.length) return;
-      dragging = true;
-      activePointer = e.pointerId;
-      dragStartX = e.clientX;
-      dragDx = 0;
-      stage.setPointerCapture?.(activePointer);
-      stage.style.cursor = 'grabbing';
-      stopAuto();
-    };
-    const onPointerMove = e => {
-      if(!dragging || e.pointerId !== activePointer) return;
-      dragDx = e.clientX - dragStartX;
-      const limited = Math.max(Math.min(dragDx, 140), -140);
-      stage.style.transform = `translateX(${limited * 0.25}px)`;
-    };
-    const release = e => {
-      if(!dragging || (e.pointerId !== undefined && e.pointerId !== activePointer)) return;
-      stage.style.transform = '';
-      stage.style.cursor = 'grab';
-      if(activePointer !== null) stage.releasePointerCapture?.(activePointer);
-      dragging = false;
-      const delta = dragDx;
-      dragDx = 0;
-      activePointer = null;
-      if(Math.abs(delta) > 80){
-        if(delta < 0) goNext(); else goPrev();
-      } else {
-        startAuto();
-      }
-    };
-    stage.addEventListener('pointerdown', onPointerDown);
-    stage.addEventListener('pointermove', onPointerMove);
-    stage.addEventListener('pointerup', release);
-    stage.addEventListener('pointercancel', release);
-    stage.addEventListener('pointerleave', release);
-  }
 
   // Tab list (phải)
   const tabs = document.querySelectorAll('#news-tabs [data-cat]');
