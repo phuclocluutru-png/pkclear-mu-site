@@ -1,6 +1,6 @@
 // Cấu hình nhanh cho PK CLEAR
 window.PKC_CONFIG = {
-  server: { season: "S14", exp: "xXXX", drop: "xXX%" },
+  server: { season: "S15", exp: "xXXX", drop: "xXX%" },
   links: { downloadClient: "#", downloadLauncher: "#" },
   contact: {
     facebook: { href: "https://facebook.com/yourpage", label: "facebook.com/yourpage" },
