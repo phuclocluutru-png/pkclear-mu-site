@@ -6,9 +6,33 @@ on:
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
+    env:
+      PKC_REMOTE_API_BASE: ${{ secrets.PKC_REMOTE_API_BASE }}
+      PKC_API_TOKEN: ${{ secrets.PKC_API_TOKEN }}
+      PKC_ALLOWED_HOST: ${{ secrets.PKC_ALLOWED_HOST }}
+      PKC_CACHE_TTL: ${{ secrets.PKC_CACHE_TTL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Generate config.local.php from Secrets
+        if: ${{ env.PKC_API_TOKEN != '' }}
+        shell: bash
+        run: |
+          TTL="${PKC_CACHE_TTL:-3}"
+          cat > config.local.php <<'PHP'
+          <?php
+          return [
+              'REMOTE_API_BASE' => '__REMOTE__',
+              'SECRET_TOKEN'    => '__TOKEN__',
+              'ALLOWED_HOST'    => '__HOST__',
+              'CACHE_TTL'       => __TTL__,
+          ];
+          PHP
+          sed -i "s#__REMOTE__#${PKC_REMOTE_API_BASE}#g" config.local.php
+          sed -i "s#__TOKEN__#${PKC_API_TOKEN}#g" config.local.php
+          sed -i "s#__HOST__#${PKC_ALLOWED_HOST}#g" config.local.php
+          sed -i "s#__TTL__#${TTL}#g" config.local.php
 
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

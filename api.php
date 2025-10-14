@@ -65,7 +65,17 @@ function pkc_demo_rank_data(string $type): array {
   ];
 }
 
+// Helper: luôn trả về JSON và chống cache phía client/CDN
+function pkc_no_cache_headers(): void {
+  header('Content-Type: application/json; charset=utf-8');
+  header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+  header('Pragma: no-cache');
+  header('Expires: 0');
+}
+
 if (isset($_GET['action']) && $_GET['action'] === 'rankings') {
+  // đảm bảo header JSON + no-cache cho mọi nhánh
+  pkc_no_cache_headers();
   // 1) cấu hình
   $cfg = pkc_load_config();
   $REMOTE_API_BASE = (string)($cfg['REMOTE_API_BASE'] ?? '');
