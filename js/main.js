@@ -110,7 +110,10 @@ async function initHomeNewsSection(){
     if(sImage) { sImage.src = img; sImage.alt = esc(p?.title?.rendered||''); }
     if(sTitle) { sTitle.textContent = (p?.title?.rendered||'').replace(/<[^>]+>/g,''); sTitle.href = p?.link || '#'; }
     if(sView)  { sView.href = p?.link || '#'; }
-    if(sDots){ sDots.innerHTML = sData.map((_,k)=>`<button data-k="${k}" class="h-2 w-2 rounded-full ${k===idx?'bg-white':'bg-white/30'}"></button>`).join(''); sDots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stopAuto(); renderFeatured(parseInt(b.dataset.k,10)); startAuto(); })); }
+    if(sDots){
+      sDots.innerHTML = sData.map((_,k)=>`<button data-k="${k}" class="${k===idx?'active':''}"></button>`).join('');
+      sDots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stopAuto(); renderFeatured(parseInt(b.dataset.k,10)); startAuto(); }));
+    }
   }
   function startAuto(){ stopAuto(); timer = setInterval(()=>renderFeatured(idx+1), 6000); }
   function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
@@ -133,13 +136,13 @@ async function initHomeNewsSection(){
           if(Array.isArray(terms) && Array.isArray(terms[0]) && terms[0][0]?.name) cat=terms[0][0].name;
         }catch{}
         const meta = [cat,d].filter(Boolean).join(' / ');
-        return `<li><a class="flex justify-between items-center gap-3 group" href="${l}" target="_blank" rel="noopener"><span class="truncate group-hover:text-cyan-300">${esc(t)}</span><span class="text-xs text-slate-400 whitespace-nowrap">${esc(meta)}</span></a></li>`;
+        return `<li><a class="news-list-link" href="${l}" target="_blank" rel="noopener"><span class="truncate">${esc(t)}</span><span class="news-meta">${esc(meta)}</span></a></li>`;
       }).join('');
     }catch{ list.innerHTML = '<li class="text-slate-400">Không tải được bài viết.</li>'; }
   }
   tabs.forEach(b=>b.addEventListener('click',()=>{
-    tabs.forEach(x=>x.classList.remove('bg-white/10','text-white'));
-    b.classList.add('bg-white/10','text-white');
+    tabs.forEach(x=>x.classList.remove('news-tab--active'));
+    b.classList.add('news-tab--active');
     loadList(b.dataset.cat);
   }));
 
@@ -147,6 +150,6 @@ async function initHomeNewsSection(){
   try { sData = await fetchPosts({perPage:5, catSlug:SLUGS.featured}); } catch {}
   if(Array.isArray(sData) && sData.length){ renderFeatured(0); startAuto(); }
   const firstTab = document.querySelector('#news-tabs [data-cat]');
-  if(firstTab) { firstTab.classList.add('bg-white/10','text-white'); loadList(firstTab.dataset.cat); }
+  if(firstTab) { firstTab.classList.add('news-tab--active'); loadList(firstTab.dataset.cat); }
 }
 initHomeNewsSection();
