@@ -17,6 +17,91 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+const HERO_DEFAULTS = {
+  title: 'Mu Online',
+  accent: 'PK CLEAR',
+  pill: 'Server kiem duyet • Khong mo dang ky cong khai',
+  description: 'May chu PK toc do muot, can bang class, su kien day dac, anti-cheat manh. Tham gia ngay de khang dinh dang cap chien binh!',
+  primaryText: 'Tai Game',
+  primaryHref: '/pages/download.html',
+  secondaryText: 'Lien he Admin',
+  secondaryHref: '/pages/contact.html',
+  tertiaryText: 'Tin tuc',
+  tertiaryHref: '/pages/news.html'
+};
+
+const escapeHtml = (str = '') =>
+  str.toString().replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char] || char);
+
+function renderHeroSections() {
+  const mounts = document.querySelectorAll('[data-hero]');
+  if (!mounts.length) return;
+
+  mounts.forEach(mount => {
+    const data = mount.dataset || {};
+    const title = data.heroTitle || HERO_DEFAULTS.title;
+    const accent = data.heroAccent || HERO_DEFAULTS.accent;
+    const pill = data.heroPill || HERO_DEFAULTS.pill;
+    const description = data.heroDescription || HERO_DEFAULTS.description;
+
+    const primaryText = data.heroPrimaryText || HERO_DEFAULTS.primaryText;
+    const primaryHref = data.heroPrimaryHref || HERO_DEFAULTS.primaryHref;
+
+    const secondaryText = data.heroSecondaryText || HERO_DEFAULTS.secondaryText;
+    const secondaryHref = data.heroSecondaryHref || HERO_DEFAULTS.secondaryHref;
+
+    const tertiaryDefined = Object.prototype.hasOwnProperty.call(data, 'heroTertiaryText');
+    const tertiaryText = tertiaryDefined ? data.heroTertiaryText : HERO_DEFAULTS.tertiaryText;
+    const tertiaryHref = data.heroTertiaryHref || HERO_DEFAULTS.tertiaryHref;
+    const showTertiary = tertiaryText && tertiaryText.trim().length > 0;
+
+    mount.classList.add('relative', 'overflow-hidden');
+    mount.innerHTML = `
+      <div class="absolute inset-0 bg-gradient-to-b from-purple-800/30 via-transparent to-slate-950"></div>
+      <div class="absolute inset-0 bg-grid"></div>
+      <div class="mx-auto max-w-7xl px-4 pt-16 pb-20 relative">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 class="font-display text-4xl md:text-6xl font-extrabold leading-tight">${escapeHtml(title)} <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">${escapeHtml(accent)}</span></h1>
+            <div class="mt-3 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-xs text-purple-200">${escapeHtml(pill)}</div>
+            <p class="mt-4 text-slate-300 text-lg max-w-xl">${escapeHtml(description)}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="${escapeHtml(primaryHref)}" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold glow">${escapeHtml(primaryText)}</a>
+              <a href="${escapeHtml(secondaryHref)}" class="px-6 py-3 rounded-2xl border border-white/10 hover:border-white/20">${escapeHtml(secondaryText)}</a>
+              ${showTertiary ? `<a href="${escapeHtml(tertiaryHref)}" class="px-6 py-3 rounded-2xl border border-white/10 hover:border-white/20">${escapeHtml(tertiaryText)}</a>` : ''}
+            </div>
+            <div class="mt-6 text-sm text-slate-400">Trang thai may chu: <span id="server-status" class="text-slate-200">Dang tai...</span></div>
+          </div>
+          <div class="relative">
+            <div class="absolute -inset-1 rounded-full blur-3xl bg-gradient-to-r from-purple-600/20 to-cyan-400/20"></div>
+            <img src="/assets/logo.png" alt="PK CLEAR logo" class="relative mx-auto h-56 md:h-72 w-auto"/>
+            <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+              <div class="rounded-2xl border border-white/10 p-4">
+                <div class="text-2xl font-bold">Season</div>
+                <div id="pkc-season" class="text-slate-400">Sx.x</div>
+              </div>
+              <div class="rounded-2xl border border-white/10 p-4">
+                <div class="text-2xl font-bold">Exp</div>
+                <div id="pkc-exp" class="text-slate-400">xXXX</div>
+              </div>
+              <div class="rounded-2xl border border-white/10 p-4">
+                <div class="text-2xl font-bold">Drop</div>
+                <div id="pkc-drop" class="text-slate-400">xXX%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
 // Fetch server status (demo placeholder)
 async function loadStatus() {
   const el = document.getElementById('server-status');
@@ -29,7 +114,6 @@ async function loadStatus() {
     el.textContent = 'Khong the tai trang thai may chu.';
   }
 }
-loadStatus();
 
 // Apply config values to DOM
 function applyConfig() {
@@ -59,7 +143,6 @@ function applyConfig() {
   setLink('pkc-contact-email', contact.email);
   setLink('pkc-contact-phone', contact.phone);
 }
-applyConfig();
 
 // WordPress helpers
 const wpCategoryIdCache = new Map();
@@ -343,5 +426,8 @@ async function loadNewsPageSections() {
   }
 }
 
+renderHeroSections();
+loadStatus();
+applyConfig();
 loadWpPosts();
 loadNewsPageSections();
