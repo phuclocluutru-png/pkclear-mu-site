@@ -74,8 +74,12 @@
 <section id="news" class="news-section">
   <div class="news-grid" id="home-news-root">
     <div class="news-left">
-      <div id="news-slider" class="news-slider">
+            <div id="news-slider" class="news-slider">
         <div class="news-slider-stage">
+          <div class="news-slider-backdrop">
+            <div class="news-slider-glow"></div>
+            <div class="news-slider-blur"></div>
+          </div>
           <div class="news-slider-layer">
             <div id="news-prev-card" class="news-card news-card--ghost"></div>
             <div class="news-card news-card--main">
@@ -85,13 +89,15 @@
           </div>
         </div>
         <div class="news-slider-meta">
-          <span class="news-slider-label">Bài viết nổi bật</span>
+          <span class="news-slider-label">B?i vi?t n?i b?t</span>
+          <div id="news-featured-meta" class="news-slider-subtitle"></div>
           <a id="news-featured-title" href="#" target="_blank" rel="noopener" class="news-slider-title">&nbsp;</a>
+          <p id="news-featured-excerpt" class="news-slider-excerpt"></p>
           <div class="news-slider-actions">
             <div class="news-slider-nav">
-              <button id="news-prev" class="news-arrow prev">←</button>
+              <button id="news-prev" class="news-arrow prev" aria-label="B?i tr??c">&lsaquo;</button>
               <div id="news-featured-dots" class="news-dots"></div>
-              <button id="news-next" class="news-arrow next">→</button>
+              <button id="news-next" class="news-arrow next" aria-label="B?i k?">&rsaquo;</button>
             </div>
             <a id="news-featured-view" href="#" target="_blank" rel="noopener" class="news-cta">Xem ngay</a>
           </div>
@@ -100,15 +106,14 @@
     </div>
     <div class="news-right">
       <div class="news-header">
-        <div class="tabs left">
-          <button class="news-tab" data-tab="featured">Nổi bật</button>
-          <button class="news-tab" data-tab="events">Sự kiện</button>
+        <div class="tabs cluster">
+          <button class="news-tab" data-tab="featured">N?i b?t</button>
+          <button class="news-tab" data-tab="events">S? ki?n</button>
+          <button class="news-tab" data-tab="pkclear">PK CLEAR</button>
+          <button class="news-tab" data-tab="updates">Tin t?c &amp; C?p nh?t</button>
+          <button class="news-tab" data-tab="guides">H??ng d?n</button>
         </div>
         <div class="logo">PK CLEAR</div>
-        <div class="tabs right">
-          <button class="news-tab" data-tab="updates">Cập nhật</button>
-          <button class="news-tab" data-tab="guides">Hướng dẫn</button>
-        </div>
       </div>
       <div class="glass-panel">
         <ul id="news-items" class="news-list"></ul>

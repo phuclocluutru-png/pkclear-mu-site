@@ -1,7 +1,14 @@
-// Cấu hình nhanh cho PK CLEAR
+// Quick configuration for PK CLEAR site integration
 window.PKC_CONFIG = {
-  server: { season: "S15", exp: "xXXX", drop: "xXX%" },
-  links: { downloadClient: "#", downloadLauncher: "#" },
+  server: {
+    season: "S15",
+    exp: "xXXX",
+    drop: "xXX%"
+  },
+  links: {
+    downloadClient: "#",
+    downloadLauncher: "#"
+  },
   contact: {
     facebook: { href: "https://facebook.com/yourpage", label: "facebook.com/yourpage" },
     zalo: { href: "https://zalo.me/yourid", label: "zalo.me/yourid" },
@@ -12,12 +19,17 @@ window.PKC_CONFIG = {
   wordpress: {
     baseUrl: "https://pkclear.com",
     useProxy: false,
-    // Slug các danh mục để phân tab/featured
+    // Slugs for categories used throughout the news widgets
     categories: {
       featured: "noi-bat",
       su_kien: "su-kien",
+      pk_clear: "muonline-pkclear",
+      tin_tuc: "tin-tuc-cap-nhat",
       cap_nhat: "cap-nhat",
-      huong_dan: "huong-dan"
+      huong_dan: "huong-dan",
+      co_ban: "co-ban",
+      meo_nang_cao: "meo-nang-cao",
+      trang_bi: "trang-bi"
     }
   }
 };
