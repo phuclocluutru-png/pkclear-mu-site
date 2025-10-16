@@ -7,12 +7,6 @@ Website tĩnh giới thiệu máy chủ Mu Online PK CLEAR, sử dụng Tailwind
 - Cấu hình nhanh trong [`js/config.js`](js/config.js).
 - Tin tức tự lấy từ WordPress (REST API hoặc proxy qua [`api.php`](api.php)).
 
-
-## Cấu trúc & chỉnh sửa nhanh
-- Layout dùng chung khai báo trong [`includes/layout.php`](includes/layout.php) với hàm `render_page()`. Mỗi trang chỉ cần truyền tham số và nội dung HTML trong callback.
-- Header/Footer được tái sử dụng qua các partial trong [`partials/`](partials). Điều chỉnh menu tại [`config/navigation.php`](config/navigation.php).
-- Thêm trang mới bằng cách tạo file trong `pages/` (hoặc thư mục khác) và gọi `render_page([...], function () { /* nội dung */ });`.
-
 ## Chuẩn bị môi trường phát triển
 - Sử dụng máy chủ tĩnh (VD: `php -S localhost:8000`) để chạy do có endpoint PHP proxy.
 - Tailwind được nhúng qua CDN, cân nhắc thiết lập build pipeline nếu cần tuỳ biến sâu.
@@ -32,9 +26,12 @@ Website tĩnh giới thiệu máy chủ Mu Online PK CLEAR, sử dụng Tailwind
 Cache BXH được lưu tại `storage/cache/` (tự tạo khi chạy). Nếu thư mục không ghi được, hệ thống sẽ fallback thư mục tạm của OS. Khuyến nghị chặn truy cập trực tiếp thư mục `storage/` trên web server (Nginx/Apache).
 
 Repo đã bổ sung `.gitignore` để bỏ qua `config.local.php`, `storage/` và các artifact build.
+<<<<<<< HEAD
 
 ### Khắc phục lỗi “Lỗi dữ liệu” ở trang BXH
 - Nguyên nhân phổ biến: server chưa cấu hình `api.php` sau khi ẩn secret, nên endpoint trả `{ error: "server_not_configured" }`.
 - Cách xử lý:
   1) Với môi trường thật, cấu hình biến môi trường hoặc `config.local.php` như mục trên.
   2) Với môi trường local, có sẵn dữ liệu mô phỏng khi truy cập từ `localhost` hoặc khi đặt `PKC_DEV_ALLOW_STUB=1` trong môi trường. Dùng để test giao diện nhanh.
+=======
+>>>>>>> 515371e5754ec985421b642741c267fd5e43ff20
