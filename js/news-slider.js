@@ -150,17 +150,17 @@
     if(mainImg){
       if(img){
         mainImg.src = img;
-        mainImg.alt = title || 'Bai viet noi bat';
+        mainImg.alt = title || 'Bài viết nổi bật';
         setBackdrop(img);
       }else{
         mainImg.removeAttribute('src');
-        mainImg.alt = 'Bai viet noi bat';
+        mainImg.alt = 'Bài viết nổi bật';
         setBackdrop('');
       }
     }
     if(metaEl) metaEl.textContent = meta;
     if(titleEl){
-      titleEl.textContent = title || 'Dang cap nhat';
+      titleEl.textContent = title || 'Đang cập nhật';
       titleEl.href = link;
     }
     if(excerptEl) excerptEl.textContent = excerpt;
@@ -201,13 +201,13 @@
     const items = Array.isArray(posts) ? posts.slice(0, 6) : [];
     if(listEl){
       const fragments = items.map(post => {
-        const title = sanitize(post?.title?.rendered || 'Khong co tieu de');
+        const title = sanitize(post?.title?.rendered || 'Không có tiêu đề');
         const link = post?.link || '#';
         const meta = [getPrimaryCategory(post), formatDate(post?.date)].filter(Boolean).join(' | ');
         return `<li><a class="news-list-link" href="${link}" target="_blank" rel="noopener"><span class="truncate">${escapeHtml(title)}</span><span class="news-meta">${escapeHtml(meta)}</span></a></li>`;
       });
       while(fragments.length < 6){
-        fragments.push('<li class="news-placeholder"><div class="news-list-link">Dang cap nhat...</div></li>');
+        fragments.push('<li class="news-placeholder"><div class="news-list-link">Đang cập nhật...</div></li>');
       }
       listEl.innerHTML = fragments.join('');
     }
