@@ -3,7 +3,8 @@
 Tài liệu này tổng hợp nhanh kiến trúc hiện tại của website và các đầu việc nên thực hiện trước khi mở rộng phát triển.
 
 ## 1. Kiến trúc hiện tại
-- **HTML tĩnh**: Trang chủ [`index.html`](../index.html) và các trang phụ trong thư mục [`pages/`](../pages) sử dụng Tailwind CSS qua CDN.
+- **HTML/PHP tĩnh**: Trang chủ [`index.php`](../index.php) và các trang phụ trong thư mục [`pages/`](../pages) gọi helper [`render_page()`](../includes/layout.php) để nạp partial (`partials/*.php`) và chia sẻ header/footer.
+- **Điều hướng**: Menu tập trung trong [`config/navigation.php`](../config/navigation.php) để chỉnh sửa một lần dùng cho mọi trang.
 - **Tài sản**: Logo duy nhất tại [`assets/logo.png`](../assets/logo.png), stylesheet tuỳ biến tại [`css/custom.css`](../css/custom.css).
 - **JavaScript**: 
   - [`js/config.js`](../js/config.js) cung cấp cấu hình toàn cục (`window.PKC_CONFIG`).
