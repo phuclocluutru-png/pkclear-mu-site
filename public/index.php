@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/includes/layout.php';
+require dirname(__DIR__) . '/app/layout.php';
 
 render_page([
     'title' => 'PK CLEAR | Mu Online Private Server',

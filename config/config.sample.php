@@ -1,6 +1,6 @@
 <?php
 // Mẫu cấu hình cục bộ cho API proxy.
-// Sao chép file này thành `config.local.php` và điền giá trị thật.
+// Sao chép file này thành `config.local.php` trong cùng thư mục và điền giá trị thật.
 
 return [
     // API của VPS cung cấp BXH

@@ -3,13 +3,13 @@
 Tài liệu này tổng hợp nhanh kiến trúc hiện tại của website và các đầu việc nên thực hiện trước khi mở rộng phát triển.
 
 ## 1. Kiến trúc hiện tại
-- **HTML/PHP tĩnh**: Trang chủ [`index.php`](../index.php) và các trang phụ trong thư mục [`pages/`](../pages) gọi helper [`render_page()`](../includes/layout.php) để nạp partial (`partials/*.php`) và chia sẻ header/footer.
+- **HTML/PHP tĩnh**: Trang chủ [`public/index.php`](../public/index.php) và các trang phụ trong thư mục [`public/pages/`](../public/pages) gọi helper [`render_page()`](../app/layout.php) để nạp partial (`app/partials/*.php`) và chia sẻ header/footer.
 - **Điều hướng**: Menu tập trung trong [`config/navigation.php`](../config/navigation.php) để chỉnh sửa một lần dùng cho mọi trang.
-- **Tài sản**: Logo duy nhất tại [`assets/logo.png`](../assets/logo.png), stylesheet tuỳ biến tại [`css/custom.css`](../css/custom.css).
+- **Tài sản**: Logo duy nhất tại [`public/assets/logo.png`](../public/assets/logo.png), stylesheet tuỳ biến tại [`public/css/custom.css`](../public/css/custom.css).
 - **JavaScript**: 
-  - [`js/config.js`](../js/config.js) cung cấp cấu hình toàn cục (`window.PKC_CONFIG`).
-  - [`js/main.js`](../js/main.js) xử lý menu mobile, cập nhật DOM theo cấu hình, gọi API nội bộ (`api.php`) và WordPress REST API.
-- **Backend nhẹ**: [`api.php`](../api.php) đóng vai trò proxy/bộ test API, cần PHP để chạy.
+-  - [`public/js/config.js`](../public/js/config.js) cung cấp cấu hình toàn cục (`window.PKC_CONFIG`).
+-  - [`public/js/main.js`](../public/js/main.js) xử lý menu mobile, cập nhật DOM theo cấu hình, gọi API nội bộ (`public/api.php`) và WordPress REST API.
+- **Backend nhẹ**: [`public/api.php`](../public/api.php) đóng vai trò proxy/bộ test API, cần PHP để chạy.
 
 ## 2. Kiểm tra nhanh
 | Hạng mục | Trạng thái | Ghi chú |

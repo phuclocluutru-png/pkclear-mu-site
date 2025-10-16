@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/../includes/layout.php';
+require dirname(__DIR__, 2) . '/app/layout.php';
 
 render_page([
     'title' => 'Bảng xếp hạng | PK CLEAR',
