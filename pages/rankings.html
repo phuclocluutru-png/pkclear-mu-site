@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="vi"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bảng xếp hạng | PK CLEAR</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/custom.css"/>
+</head><body class="bg-slate-950 text-slate-100">
+<div class="mx-auto max-w-6xl px-4 py-10">
+  <a href="/" class="text-slate-400">&larr; Trang chủ</a>
+  <h1 class="font-bold text-3xl mt-4">Bảng xếp hạng</h1>
+
+  <div class="mt-6 flex gap-2">
+    <button data-type="ranking" class="tab px-4 py-2 rounded-xl border border-white/10 bg-white/5">Nhân vật</button>
+    <button data-type="guild"   class="tab px-4 py-2 rounded-xl border border-white/10">Guild</button>
+    <button data-type="boss"    class="tab px-4 py-2 rounded-xl border border-white/10">Boss</button>
+    <span id="rank-status" class="text-slate-400 text-sm ml-auto"></span>
+  </div>
+
+  <div class="mt-4 overflow-x-auto rounded-xl border border-white/10">
+    <table class="min-w-full text-left text-sm">
+      <thead id="rank-head" class="bg-white/5 text-slate-300"></thead>
+      <tbody id="rank-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const $ = (s)=>document.querySelector(s);
+const $$ = (s)=>Array.from(document.querySelectorAll(s));
+const statusEl = $('#rank-status');
+
+function setHead(type){
+  const head = {
+    ranking: `<tr>
+      <th class="px-4 py-3">#</th><th class="px-4 py-3">Nhân vật</th>
+      <th class="px-4 py-3">Level</th><th class="px-4 py-3">Reset</th>
+      <th class="px-4 py-3">Master</th><th class="px-4 py-3">Guild</th><th class="px-4 py-3">Trạng thái</th>
+    </tr>`,
+    guild: `<tr>
+      <th class="px-4 py-3">#</th><th class="px-4 py-3">Guild</th>
+      <th class="px-4 py-3">Guild Master</th><th class="px-4 py-3">Điểm cống hiến</th>
+      <th class="px-4 py-3">Thành viên</th><th class="px-4 py-3">Điểm</th>
+    </tr>`,
+    boss: `<tr>
+      <th class="px-4 py-3">#</th><th class="px-4 py-3">Nhân vật</th>
+      <th class="px-4 py-3">Số Boss</th><th class="px-4 py-3">Điểm</th>
+    </tr>`
+  }[type];
+  $('#rank-head').innerHTML = head;
+}
+
+function esc(s){ return (s??'').toString().replace(/[&<>"]/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m])); }
+
+async function loadRank(type='ranking'){
+  setHead(type);
+  statusEl.textContent = 'Đang tải...';
+  try{
+    const res = await fetch(`/api.php?action=rankings&type=${encodeURIComponent(type)}`);
+    const data = await res.json();
+    if (data && data.error) {
+      $('#rank-body').innerHTML = `<tr><td class="px-4 py-6" colspan="7">Không tải được BXH: ${esc(data.error)}</td></tr>`;
+      statusEl.textContent = '';
+      return;
+    }
+    if(Array.isArray(data)){
+      const rows = data.map((r,i)=>{
+        if(type==='ranking'){
+          return `<tr class="border-t border-white/5">
+            <td class="px-4 py-3">${r.ranking ?? (i+1)}</td>
+            <td class="px-4 py-3">${esc(r.name)}</td>
+            <td class="px-4 py-3">${r.level}</td>
+            <td class="px-4 py-3">${r.reset}</td>
+            <td class="px-4 py-3">${r.master_reset}</td>
+            <td class="px-4 py-3">${esc(r.guild||'')}</td>
+            <td class="px-4 py-3">${esc(r.status||'')}</td>
+          </tr>`;
+        }
+        if(type==='guild'){
+          return `<tr class="border-t border-white/5">
+            <td class="px-4 py-3">${r.ranking ?? (i+1)}</td>
+            <td class="px-4 py-3">${esc(r.guild_name)}</td>
+            <td class="px-4 py-3">${esc(r.master)}</td>
+            <td class="px-4 py-3">${r.TotalDevote ?? r.devote ?? ''}</td>
+            <td class="px-4 py-3">${r.MemberCount ?? r.members ?? ''}</td>
+            <td class="px-4 py-3">${r.G_Score ?? r.score ?? ''}</td>
+          </tr>`;
+        }
+        // boss
+        return `<tr class="border-t border-white/5">
+          <td class="px-4 py-3">${i+1}</td>
+          <td class="px-4 py-3">${esc(r.CharacterName || r.name || '')}</td>
+          <td class="px-4 py-3">${r.KillCount ?? r.count ?? ''}</td>
+          <td class="px-4 py-3">${r.TotalPoint ?? r.point ?? ''}</td>
+        </tr>`;
+      }).join('');
+      $('#rank-body').innerHTML = rows || `<tr><td class="px-4 py-6" colspan="7">Không có dữ liệu.</td></tr>`;
+      statusEl.textContent = '';
+    } else {
+      $('#rank-body').innerHTML = `<tr><td class="px-4 py-6" colspan="7">Lỗi dữ liệu.</td></tr>`;
+      statusEl.textContent = '';
+    }
+  }catch(e){
+    $('#rank-body').innerHTML = `<tr><td class="px-4 py-6" colspan="7">Không tải được BXH.</td></tr>`;
+    statusEl.textContent = '';
+  }
+}
+$$('.tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    $$('.tab').forEach(b=>b.classList.remove('bg-white/5'));
+    btn.classList.add('bg-white/5');
+    loadRank(btn.dataset.type);
+  });
+});
+loadRank('ranking');
+</script>
+</body></html>
