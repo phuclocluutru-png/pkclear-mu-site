@@ -1,48 +1,18 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>PK CLEAR | Mu Online Private Server</title>
-  <meta name="description" content="Máy chủ PK tốc độ mượt, cân bằng class, sự kiện dày đặc, anti-cheat mạnh."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/css/custom.css"/>
-  <link rel="stylesheet" href="/css/news.css"/>
-  <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}h1,.font-display{font-family:Oxanium,Inter,sans-serif;letter-spacing:.5px}</style>
-</head>
-<body class="bg-slate-950 text-slate-100">
-<header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
-  <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/assets/logo.png" class="h-10 w-auto" alt="PK CLEAR logo"/>
-      <span class="font-display text-xl">PK CLEAR</span>
-    </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm">
-      <a href="#home" class="hover:text-cyan-300 text-cyan-300 font-semibold">Trang chủ</a>
-      <a href="#features" class="hover:text-cyan-300">Tính năng</a>
-      <a href="/pages/download.php" class="hover:text-cyan-300">Tải game</a>
-      <a href="/pages/rankings.php" class="hover:text-cyan-300">Bảng xếp hạng</a>
-      <a href="/pages/news.php" class="hover:text-cyan-300">Tin tức</a>
-      <a href="/pages/rules.php" class="hover:text-cyan-300">Nội quy</a>
-    </nav>
-    <a href="/pages/contact.php" class="hidden md:inline-block px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold">Liên hệ Admin</a>
-    <button id="menu-btn" class="md:hidden px-3 py-2 rounded-lg border border-white/10">Menu</button>
-  </div>
-  <div id="menu" class="md:hidden hidden border-t border-white/5">
-    <div class="px-4 py-3 flex flex-col gap-2 text-sm">
-      <a href="#home" class="hover:text-cyan-300 text-cyan-300 font-semibold">Trang chủ</a>
-      <a href="#features" class="hover:text-cyan-300">Tính năng</a>
-      <a href="/pages/download.php" class="hover:text-cyan-300">Tải game</a>
-      <a href="/pages/rankings.php" class="hover:text-cyan-300">Bảng xếp hạng</a>
-      <a href="/pages/news.php" class="hover:text-cyan-300">Tin tức</a>
-      <a href="/pages/rules.php" class="hover:text-cyan-300">Nội quy</a>
-      <a href="/pages/contact.php" class="mt-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold text-center">Liên hệ Admin</a>
-    </div>
-  </div>
-</header>
+<?php
+declare(strict_types=1);
+
+require __DIR__ . '/includes/layout.php';
+
+render_page([
+    'title' => 'PK CLEAR | Mu Online Private Server',
+    'description' => 'Máy chủ PK tốc độ mượt, cân bằng class, sự kiện dày đặc, anti-cheat mạnh.',
+    'bodyClass' => 'bg-slate-950 text-slate-100',
+    'styles' => ['/css/news.css'],
+    'activeNav' => 'home',
+    'isHome' => true,
+    'scripts' => ['/js/news-slider.js'],
+], function (): void {
+?>
 <section id="home" class="relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-purple-800/30 via-transparent to-slate-950"></div>
   <div class="absolute inset-0 bg-grid"></div>
@@ -158,11 +128,5 @@
     </div>
   </div>
 </section>
-<footer class="border-t border-white/5 py-8 text-center text-sm text-slate-400">
-  © 2025 PK CLEAR. All rights reserved.
-</footer>
-<script src="/js/config.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/news-slider.js"></script>
-</body>
-</html>
+<?php
+});
