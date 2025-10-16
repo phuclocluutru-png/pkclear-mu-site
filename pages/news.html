@@ -4,17 +4,15 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Tin tức | PK CLEAR</title>
-  <meta name="description" content="Trung tâm tin tức PK CLEAR: sự kiện, cập nhật và hướng dẫn mới nhất."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css"/>
   <link rel="stylesheet" href="/css/news.css"/>
-  <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}h1,.font-display{font-family:Oxanium,Inter,sans-serif;letter-spacing:.5px}</style>
 </head>
 <body class="bg-slate-950 text-slate-100">
 <<<<<<< ours
+<<<<<<< ours
+=======
+>>>>>>> theirs
   <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3">
@@ -22,6 +20,7 @@
         <span class="font-display text-xl">PK CLEAR</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
+<<<<<<< ours
         <a href="/#home" class="hover:text-cyan-300">Trang chủ</a>
         <a href="/#features" class="hover:text-cyan-300">Tính năng</a>
         <a href="/pages/download.html" class="hover:text-cyan-300">Tải game</a>
@@ -99,16 +98,55 @@
 >>>>>>> theirs
         </div>
         <div id="news-page-filters"></div>
-      </div>
-      <div id="news-page-content" class="space-y-16"></div>
+=======
+        <a href="/#home" class="hover:text-cyan-300">Trang chu</a>
+        <a href="/#features" class="hover:text-cyan-300">Tinh nang</a>
+        <a href="/pages/download.html" class="hover:text-cyan-300">Tai game</a>
+        <a href="/pages/rankings.html" class="hover:text-cyan-300">Bang xep hang</a>
+        <a href="/pages/news.html" class="hover:text-cyan-300 text-cyan-300 font-semibold">Tin tuc</a>
+        <a href="/pages/rules.html" class="hover:text-cyan-300">Noi quy</a>
+      </nav>
+      <a href="/pages/contact.html" class="hidden md:inline-block px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold">Lien he Admin</a>
+      <button id="menu-btn" class="md:hidden px-3 py-2 rounded-lg border border-white/10">Menu</button>
     </div>
-  </section>
-</main>
-<footer class="border-t border-white/5 py-8 text-center text-sm text-slate-400">
-  © 2025 PK CLEAR. All rights reserved.
-</footer>
-<script src="/js/config.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/news-slider.js"></script>
+    <div id="menu" class="md:hidden hidden border-t border-white/5">
+      <div class="px-4 py-3 flex flex-col gap-2 text-sm">
+        <a href="/#home" class="hover:text-cyan-300">Trang chu</a>
+        <a href="/#features" class="hover:text-cyan-300">Tinh nang</a>
+        <a href="/pages/download.html" class="hover:text-cyan-300">Tai game</a>
+        <a href="/pages/rankings.html" class="hover:text-cyan-300">Bang xep hang</a>
+        <a href="/pages/news.html" class="hover:text-cyan-300 text-cyan-300 font-semibold">Tin tuc</a>
+        <a href="/pages/rules.html" class="hover:text-cyan-300">Noi quy</a>
+        <a href="/pages/contact.html" class="mt-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-400 text-slate-900 font-semibold text-center">Lien he Admin</a>
+>>>>>>> theirs
+      </div>
+    </div>
+  </header>
+
+  <section data-hero data-hero-title="Tin tuc" data-hero-accent="PK CLEAR"></section>
+
+  <main class="relative">
+    <section class="news-page-wrapper py-16">
+      <div class="mx-auto max-w-6xl px-4 space-y-12">
+        <div class="news-page-head">
+          <div>
+            <p class="news-page-eyebrow">Trung tam tin tuc</p>
+            <h2 class="news-page-title">Chon danh muc de bat kip moi thong tin</h2>
+            <p class="news-page-desc">Bot loc giup ban truy cap nhanh cac chu de: tin tuc &amp; cap nhat, su kien, PK CLEAR, huong dan co ban va nang cao.</p>
+          </div>
+          <div id="news-page-filters"></div>
+        </div>
+        <div id="news-page-content" class="space-y-16"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-400">
+    © <span id="year"></span> PK CLEAR. All rights reserved.
+  </footer>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
