@@ -5,7 +5,7 @@ require __DIR__ . '/includes/layout.php';
 
 render_page([
     'title' => 'PK CLEAR | Mu Online Private Server',
-    'description' => 'Máy chủ PK tốc độ mượt, cân bằng class, sự kiện dày đặc, anti-cheat mạnh.',
+    'description' => 'Máy chủ PK tốc độ mượttt, cân bằng class, sự kiện dày đặc, anti-cheat mạnh.',
     'bodyClass' => 'bg-slate-950 text-slate-100',
     'styles' => ['/css/news.css'],
     'activeNav' => 'home',
