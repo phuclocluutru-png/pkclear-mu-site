@@ -20,14 +20,14 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 const HERO_DEFAULTS = {
   title: 'Mu Online',
   accent: 'PK CLEAR',
-  pill: 'Server kiểm duyệt • Không mở đăng ký công khai',
-  description: 'Máy chủ PK tốc độ mượt, cân bằng class, sự kiện dày đặc, anti-cheat mạnh. Tham gia ngay để khẳng định đẳng cấp chiến binh!',
-  primaryText: 'Tải Game',
-  primaryHref: '/pages/download.php',
-  secondaryText: 'Liên hệ Admin',
-  secondaryHref: '/pages/contact.php',
-  tertiaryText: 'Tin tức',
-  tertiaryHref: '/pages/news.php'
+  pill: 'Server kiem duyet • Khong mo dang ky cong khai',
+  description: 'May chu PK toc do muot, can bang class, su kien day dac, anti-cheat manh. Tham gia ngay de khang dinh dang cap chien binh!',
+  primaryText: 'Tai Game',
+  primaryHref: '/pages/download.html',
+  secondaryText: 'Lien he Admin',
+  secondaryHref: '/pages/contact.html',
+  tertiaryText: 'Tin tuc',
+  tertiaryHref: '/pages/news.html'
 };
 
 const escapeHtml = (str = '') =>
@@ -76,7 +76,7 @@ function renderHeroSections() {
               <a href="${escapeHtml(secondaryHref)}" class="px-6 py-3 rounded-2xl border border-white/10 hover:border-white/20">${escapeHtml(secondaryText)}</a>
               ${showTertiary ? `<a href="${escapeHtml(tertiaryHref)}" class="px-6 py-3 rounded-2xl border border-white/10 hover:border-white/20">${escapeHtml(tertiaryText)}</a>` : ''}
             </div>
-            <div class="mt-6 text-sm text-slate-400">Trạng thái máy chủ: <span id="server-status" class="text-slate-200">Đang tải...</span></div>
+            <div class="mt-6 text-sm text-slate-400">Trang thai may chu: <span id="server-status" class="text-slate-200">Dang tai...</span></div>
           </div>
           <div class="relative">
             <div class="absolute -inset-1 rounded-full blur-3xl bg-gradient-to-r from-purple-600/20 to-cyan-400/20"></div>
@@ -111,7 +111,7 @@ async function loadStatus() {
     const data = await response.json();
     el.textContent = data?.message || 'Server dang hoat dong';
   } catch {
-    el.textContent = 'Không thể tải trạng thái máy chủ.';
+    el.textContent = 'Khong the tai trang thai may chu.';
   }
 }
 
@@ -240,7 +240,7 @@ function renderHomepagePosts(posts, containerId) {
   const container = document.getElementById(containerId);
   if (!container || !Array.isArray(posts)) return;
   container.innerHTML = posts.map(post => {
-    const title = sanitizeWpText(post?.title?.rendered || 'Không có tiêu đề');
+    const title = sanitizeWpText(post?.title?.rendered || 'Khong co tieu de');
     const link = post?.link || '#';
     const date = formatWpDate(post?.date);
     const excerpt = shortenText(sanitizeWpText(post?.excerpt?.rendered || ''), 150);
@@ -259,11 +259,11 @@ function renderHomepagePosts(posts, containerId) {
 function renderNewsPageCards(posts, container) {
   if (!container) return;
   if (!Array.isArray(posts) || !posts.length) {
-    container.innerHTML = '<div class="text-slate-500 text-sm">Đang cập nhật...</div>';
+    container.innerHTML = '<div class="text-slate-500 text-sm">Dang cap nhat...</div>';
     return;
   }
   container.innerHTML = posts.map(post => {
-    const title = sanitizeWpText(post?.title?.rendered || 'Không có tiêu đề');
+    const title = sanitizeWpText(post?.title?.rendered || 'Khong co tieu de');
     const link = post?.link || '#';
     const date = formatWpDate(post?.date);
     const excerpt = shortenText(sanitizeWpText(post?.excerpt?.rendered || ''), 160);
@@ -293,7 +293,7 @@ async function loadWpPosts() {
       renderHomepagePosts(news, 'wp-news');
     }
   } catch {
-    if (newsTarget) newsTarget.innerHTML = '<div class="text-slate-400 text-sm">Không thể tải bài viết.</div>';
+    if (newsTarget) newsTarget.innerHTML = '<div class="text-slate-400 text-sm">Khong the tai bai viet.</div>';
   }
 }
 
@@ -303,7 +303,7 @@ async function loadNewsPageSections() {
   const filtersRoot = document.getElementById('news-page-filters');
   const cfg = getWpConfig();
   if (!cfg) {
-    container.innerHTML = '<div class="text-slate-400 text-sm">Chưa cấu hình WordPress.</div>';
+    container.innerHTML = '<div class="text-slate-400 text-sm">Chua cau hinh WordPress.</div>';
     return;
   }
 
@@ -313,8 +313,8 @@ async function loadNewsPageSections() {
     {
       key: 'tin_tuc',
       slug: cat.tin_tuc || cat.cap_nhat || 'tin-tuc-cap-nhat',
-      label: 'Tin tức & Cập nhật',
-      description: 'Thông báo, lịch bảo trì và các phiên bản mới nhất của máy chủ.',
+      label: 'Tin tuc & Cap nhat',
+      description: 'Thong bao, lich bao tri va cac phien ban moi nhat cua may chu.',
       limit: 6,
       cols: 'cols-3'
     },
@@ -322,27 +322,27 @@ async function loadNewsPageSections() {
       key: 'pkclear',
       slug: cat.pk_clear || 'muonline-pkclear',
       label: 'PK CLEAR',
-      description: 'Câu chuyện cộng đồng, linh vật và các điểm nhấn trọng tâm PK CLEAR.',
+      description: 'Cau chuyen cong dong, linh vat va cac diem nhan trong tam PK CLEAR.',
       limit: 6,
       cols: 'cols-3'
     },
     {
       key: 'events',
       slug: cat.su_kien || 'su-kien',
-      label: 'Sự kiện',
-      description: 'Tổng hợp sự kiện ingame, phần thưởng và thông báo từ ban quản trị.',
+      label: 'Su kien',
+      description: 'Tong hop su kien ingame, phan thuong va thong bao tu ban quan tri.',
       limit: 6,
       cols: 'cols-3'
     },
     {
       key: 'huongdan',
       slug: cat.huong_dan || 'huong-dan',
-      label: 'Hướng dẫn',
-      description: 'Kiến thức hỗ trợ tân thủ, mẹo nâng cao và tổng hợp build class.',
+      label: 'Huong dan',
+      description: 'Kien thuc ho tro tan thu, meo nang cao va tong hop build class.',
       children: [
-        { key: 'co_ban', slug: cat.co_ban || 'co-ban', label: 'Cơ bản', limit: 3, cols: 'cols-3' },
-        { key: 'meo_nang_cao', slug: cat.meo_nang_cao || 'meo-nang-cao', label: 'Mẹo & Nâng cao', limit: 3, cols: 'cols-3' },
-        { key: 'trang_bi', slug: cat.trang_bi || 'trang-bi', label: 'Trang bị', limit: 3, cols: 'cols-3' }
+        { key: 'co_ban', slug: cat.co_ban || 'co-ban', label: 'Co ban', limit: 3, cols: 'cols-3' },
+        { key: 'meo_nang_cao', slug: cat.meo_nang_cao || 'meo-nang-cao', label: 'Meo & Nang cao', limit: 3, cols: 'cols-3' },
+        { key: 'trang_bi', slug: cat.trang_bi || 'trang-bi', label: 'Trang bi', limit: 3, cols: 'cols-3' }
       ]
     }
   ];
@@ -350,7 +350,7 @@ async function loadNewsPageSections() {
   if (filtersRoot) {
     filtersRoot.classList.add('news-page-filters');
     const buttons = ['all', ...sections.map(s => s.key)].map(key => {
-      const label = key === 'all' ? 'Tất cả' : sections.find(s => s.key === key)?.label || key;
+      const label = key === 'all' ? 'Tat ca' : sections.find(s => s.key === key)?.label || key;
       const active = key === 'all' ? 'active' : '';
       return `<button type="button" class="${active}" data-filter="${key}">${label}</button>`;
     }).join('');
@@ -365,7 +365,7 @@ async function loadNewsPageSections() {
         return `<div class="space-y-4" data-subsection="${child.key}">
           <div class="flex items-center justify-between gap-3 flex-wrap">
             <h3 class="text-xl font-semibold">${child.label}</h3>
-            <a class="text-sm text-cyan-300 hover:text-cyan-100 transition" href="${childLink}" target="_blank" rel="noopener">Xem thêm</a>
+            <a class="text-sm text-cyan-300 hover:text-cyan-100 transition" href="${childLink}" target="_blank" rel="noopener">Xem them</a>
           </div>
           <div class="news-page-grid ${child.cols || 'cols-3'}" id="news-grid-${child.key}"></div>
         </div>`;
@@ -376,7 +376,7 @@ async function loadNewsPageSections() {
             <h2>${section.label}</h2>
             <p>${section.description}</p>
           </div>
-          <a href="${link}" target="_blank" rel="noopener">Tới danh mục</a>
+          <a href="${link}" target="_blank" rel="noopener">Toi danh muc</a>
         </div>
         <div class="space-y-10">${sub}</div>
       </section>`;
@@ -387,7 +387,7 @@ async function loadNewsPageSections() {
           <h2>${section.label}</h2>
           <p>${section.description}</p>
         </div>
-        <a href="${link}" target="_blank" rel="noopener">Tới danh mục</a>
+        <a href="${link}" target="_blank" rel="noopener">Toi danh muc</a>
       </div>
       <div class="news-page-grid ${section.cols || 'cols-3'}" id="news-grid-${section.key}"></div>
     </section>`;
