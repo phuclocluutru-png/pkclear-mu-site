@@ -2,7 +2,7 @@
 /* ================== PROXY BXH TỪ VPS ==================
  * Dùng: /api.php?action=rankings&type=ranking|guild|boss
  * Token chỉ nằm ở server, không lộ ra browser.
- * Cấu hình đọc từ biến môi trường hoặc file config.local.php (không commit)
+ * Cấu hình đọc từ biến môi trường hoặc file config/config.local.php (không commit)
  * ===================================================== */
 
 // Helper: load config ưu tiên ENV > config.local.php > defaults
@@ -14,7 +14,7 @@ function pkc_load_config(): array {
     'CACHE_TTL'       => getenv('PKC_CACHE_TTL') ?: null,
   ];
 
-  $file = __DIR__ . '/config.local.php';
+  $file = __DIR__ . '/config/config.local.php';
   $fromFile = [];
   if (is_file($file)) {
     $tmp = include $file; // trả về mảng
