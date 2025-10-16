@@ -1,6 +1,22 @@
 <?php
 declare(strict_types=1);
 
+if (!defined('PKC_BASE_PATH')) {
+    define('PKC_BASE_PATH', dirname(__DIR__));
+}
+
+if (!defined('PKC_APP_PATH')) {
+    define('PKC_APP_PATH', __DIR__);
+}
+
+if (!defined('PKC_CONFIG_PATH')) {
+    define('PKC_CONFIG_PATH', PKC_BASE_PATH . '/config');
+}
+
+if (!defined('PKC_PARTIALS_PATH')) {
+    define('PKC_PARTIALS_PATH', PKC_APP_PATH . '/partials');
+}
+
 if (!function_exists('render_page')) {
     /**
      * Render a page inside the default layout.
@@ -19,17 +35,17 @@ if (!function_exists('render_page')) {
 
         $activeNav = (string)($options['activeNav'] ?? '');
         $isHomePage = (bool)($options['isHome'] ?? false);
-        $navItems = require __DIR__ . '/../config/navigation.php';
+        $navItems = require PKC_CONFIG_PATH . '/navigation.php';
 
-        require __DIR__ . '/../partials/head.php';
-        require __DIR__ . '/../partials/header.php';
+        require PKC_PARTIALS_PATH . '/head.php';
+        require PKC_PARTIALS_PATH . '/header.php';
 
         $content();
 
-        require __DIR__ . '/../partials/footer.php';
+        require PKC_PARTIALS_PATH . '/footer.php';
 
         $additionalScripts = (array)($options['scripts'] ?? []);
-        require __DIR__ . '/../partials/scripts.php';
+        require PKC_PARTIALS_PATH . '/scripts.php';
 
         echo "</body>\n</html>\n";
     }

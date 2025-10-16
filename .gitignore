@@ -1,5 +1,5 @@
 # Secrets & local config
-config.local.php
+config/config.local.php
 .env
 
 # Caches & logs
